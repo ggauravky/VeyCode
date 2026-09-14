@@ -153,7 +153,7 @@ const TemplateSelectionModal = ({
       template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       template.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       template.tags.some((tag) =>
-        tag.toLowerCase().includes(searchQuery.toLowerCase())
+        tag.toLowerCase().includes(searchQuery.toLowerCase()),
       );
 
     const matchesCategory =
@@ -188,10 +188,10 @@ const TemplateSelectionModal = ({
 
       const template = templates.find((t) => t.id === selectedTemplate);
       onSubmit({
-        title:projectName || `New ${template?.name} Project`,
-        template:templateMap[selectedTemplate] || "REACT",
-        description:template?.description
-      })
+        title: projectName || `New ${template?.name} Project`,
+        template: templateMap[selectedTemplate] || "REACT",
+        description: template?.description,
+      });
       onClose();
       // Reset state for next time
       setStep("select");
