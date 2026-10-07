@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 export const toggleStarMarked = async (
   playgroundId: string,
-  isChecked: boolean
+  isChecked: boolean,
 ) => {
   const user = await currentUser();
   const userId = user?.id;
@@ -24,21 +24,20 @@ export const toggleStarMarked = async (
         },
       });
     } else {
-        await db.starMark.delete({
+      await db.starMark.delete({
         where: {
           userId_playgroundId: {
             userId,
             playgroundId: playgroundId,
-
           },
         },
       });
     }
 
-     revalidatePath("/dashboard");
+    revalidatePath("/dashboard");
     return { success: true, isMarked: isChecked };
   } catch (error) {
-       console.error("Error updating problem:", error);
+    console.error("Error updating problem:", error);
     return { success: false, error: "Failed to update problem" };
   }
 };
@@ -53,14 +52,14 @@ export const getAllPlaygroundForUser = async () => {
       },
       include: {
         user: true,
-        Starmark:{
-            where:{
-                userId:user?.id!
-            },
-            select:{
-                isMarked:true
-            }
-        }
+        Starmark: {
+          where: {
+            userId: user?.id!,
+          },
+          select: {
+            isMarked: true,
+          },
+        },
       },
     });
 
@@ -110,7 +109,7 @@ export const deleteProjectById = async (id: string) => {
 
 export const editProjectById = async (
   id: string,
-  data: { title: string; description: string }
+  data: { title: string; description: string },
 ) => {
   try {
     await db.playground.update({
